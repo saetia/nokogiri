@@ -23,6 +23,12 @@ echo $a->content;
 #change the text 
 $a->content = 'new string';
 
+#get the text (sub elements)
+echo $a->text; //Your Price: $49.99
+
+#use regex to parse out just the price
+echo $a->text('/[\d\.]+/'); //49.99
+
 #show the href="" attribute on the A tag
 echo $a['href'];
 
