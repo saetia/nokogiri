@@ -9,6 +9,7 @@ $Nokogiri->css('h1')->delete();
 
 #print the html with h1 elements removed
 echo $Nokogiri->to_html();
+echo $Nokogiri;
 
 #find the first A element
 $a = $Nokogiri->at_css('a');
