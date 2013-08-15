@@ -1,9 +1,9 @@
 {
-    "name": "olamedia/nokogiri",
+    "name": "saetia/nokogiri",
     "type": "library",
     "description": "HTML Parser",
     "keywords": ["html","parse","parser"],
-    "homepage": "http://github.com/olamedia/nokogiri",
+    "homepage": "http://github.com/saetia/nokogiri",
     "license": "MIT",
     "authors": [
         {
