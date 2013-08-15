@@ -1,61 +1,38 @@
-HTML parser | Парсер HTML
-===========
-Данная библиотека - это быстрый парсер html кода, который способен работать с невалидным кодом.<br />
-На вход необходимо подавать документ в кодировке UTF-8 или DomDocument.<br />
-Для поиска элементов используются css-селекторы, которые преобразуются внутри в xpath выражение.<br />
-Полученное xpath выражение кешируется, если в методе get не был выставлен в false второй аргумент (стоит отключать кеширование только в случае динамической генерации css выражений).<br />
-В возвращаемыхч через ->toArray() массивах находятся аттрибуты, текст под ключом #text и вложенные элементы под числовыми ключами.<br />
-Альтернативные методы: ->toXml() возвращает HTML-строку, ->getDom() возвращает DOMDocument<br />
-
-
-Basic usage | Примеры использования
-===================================
 ```php
 <?php
-$html = gzdecode(file_get_contents('http://habrahabr.ru/'));
 
-$saw = new nokogiri($html);
-var_dump($saw->get('a.habracut')->toArray());
-var_dump($saw->get('ul.panel-nav-top li.current')->toArray());
-var_dump($saw->get('#sidebar dl.air-comment a.topic')->toArray());
-var_dump($saw->get('a[rel=bookmark]')->toArray());
+#load html
+$Nokogiri = Nokogiri::HTML(file_get_contents('http://apple.com'));
 
-foreach ($saw->get('#sidebar a.topic') as $link){
-    var_dump($link['#text']);
-}
+#find and remove all h1 elements
+$Nokogiri->css('h1')->delete();
+
+#print the html with h1 elements removed
+echo $Nokogiri->to_html();
+
+#find the first A element
+$a = $Nokogiri->at_css('a');
+
+#print the html within that tag
+echo $Nokogiri->inner_html($a);
+
+#display the text
+echo $a->content;
+
+#change the text 
+$a->content = 'new string';
+
+#show the href="" attribute on the A tag
+echo $a['href'];
+
+#change the href="" attribute
+$a['href'] ='http://newurl.com';
+
+#remove the href="" attribute
+unset($a['href']);
+
+#show all attributes
+print_r($a->attributes);
+
+?>
 ```
-
-HTML errors will be ignored.
-Creating from HTML string: `nokogiri::fromHtml($htmlString)` or `new nokogiri($htmlString)`
-Creating from DomDocument: `nokogiri::fromDom($dom)`
-
-Ошибки html игнорируются.
-Создание из строки HTML: nokogiri::fromHtml($htmlString); или new nokogiri($htmlString);
-Создание из DomDocument: nokogiri::fromDom($dom);
-
-
-Implemented css selectors | Реализованные селекторы
-=========================
-* tag
-* .class
-* \#id
-* \[attr=value\]
-* :first-child
-* :last-child
-* :nth-child(a)
-* :nth-child(an+b)
-* :nth-child(even/odd)
-
-
-Requirements | Требования
-============
-DOM
-libxml
-PHP
-
-Links | Ссылки
-============
-Статьи на хабре:
-
-* <a href="http://habrahabr.ru/blogs/php/110112/">Нокогири: парсинг HTML в одну строку</a>
-* <a href="http://habrahabr.ru/blogs/php/114323/">Сравнение библиотек для парсинга</a>
