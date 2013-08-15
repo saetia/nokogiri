@@ -210,7 +210,7 @@ class Nokogiri implements IteratorAggregate, ArrayAccess {
 		$this->current_node = $this->search($query)->item(0);
 		return $this;
 	}
-
+to
 	//return first element
 	public function at_xpath($query){
 		$this->current_node = $this->xpath($query)->item(0);
@@ -232,7 +232,7 @@ class Nokogiri implements IteratorAggregate, ArrayAccess {
 	}
 	
 
-	public function to_inner_html($node=null){
+	public function inner_html($node=null){
 		
 		if ($node instanceof Nokogiri){
 		
